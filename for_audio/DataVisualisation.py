@@ -1,7 +1,7 @@
 import librosa
 from matplotlib import pyplot as plt
 
-from for_audio.for_audio import CremaD_df
+from for_audio import CremaD_df
 
 
 def display_all_emotions(dataframe):

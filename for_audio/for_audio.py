@@ -28,7 +28,7 @@ if not sys.warnoptions:
     warnings.simplefilter("ignore")
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
-crema_d_directory = "cremad/AudioWAV/"
+crema_d_directory = "../cremad/AudioWAV/"
 crema_d_files = os.listdir(crema_d_directory)
 
 file_emotion = []
