@@ -7,7 +7,7 @@ from DataPreparation import x_test, y_test
 from DataPreparation import encoder
 
 # Загрузка сохраненной модели
-model = load_model('my_lstm_model_for_audio')  # Замените 'path_to_your_saved_model' на путь к вашей сохраненной модели
+model = load_model('my_model_for_audio')
 
 # Предсказание на тестовых данных с использованием загруженной модели
 pred_test = model.predict(x_test)

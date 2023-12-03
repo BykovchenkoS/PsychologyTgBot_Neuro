@@ -5,7 +5,7 @@ from tensorflow.keras.callbacks import ReduceLROnPlateau
 from sklearn.metrics import classification_report, confusion_matrix
 import matplotlib.pyplot as plt
 import seaborn as sns
-
+import pandas as pd
 from DataPreparation import x_train, y_train, x_test, y_test
 from DataPreparation import encoder
 
@@ -37,7 +37,7 @@ model.compile(optimizer=Adam(lr=0.001), loss='categorical_crossentropy', metrics
 # Обучение модели
 history = model.fit(x_train, y_train, batch_size=64, epochs=50, validation_data=(x_test, y_test), callbacks=[ReduceLROnPlateau(monitor='loss', factor=0.4, verbose=0, patience=2, min_lr=0.0000001)])
 
-model.save("my_model_for_audio")
+model.save("conv_my_model_for_audio")
 
 # Оценка точности модели на тестовых данных
 accuracy = model.evaluate(x_test, y_test)[1] * 100

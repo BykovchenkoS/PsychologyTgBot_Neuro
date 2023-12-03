@@ -25,7 +25,7 @@ model.add(Dense(units=6, activation='softmax'))
 model.compile(optimizer=Adam(lr=0.001), loss='categorical_crossentropy', metrics=['accuracy'])
 history = model.fit(x_train, y_train, batch_size=64, epochs=50, validation_data=(x_test, y_test), callbacks=[ReduceLROnPlateau(monitor='loss', factor=0.4, verbose=0, patience=2, min_lr=0.0000001)])
 
-model.save("my_lstm_model_for_audio")
+model.save("lstm_my_model_for_audio")
 
 # Оценка точности модели на тестовых данных
 accuracy = model.evaluate(x_test, y_test)[1] * 100

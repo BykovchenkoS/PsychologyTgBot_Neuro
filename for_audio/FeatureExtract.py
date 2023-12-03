@@ -2,7 +2,7 @@ import librosa
 import numpy as np
 import pandas as pd
 
-from for_audio.for_audio import CremaD_df
+from for_audio import CremaD_df
 
 
 def extract_features(data):
@@ -48,14 +48,9 @@ def extract_features(data):
 
 
 def get_features(path):
-    # Load audio file
     data, sample_rate = librosa.load(path, duration=2.5, offset=0.6)
-
-    # Extract features without augmentation
     res1 = extract_features(data)
     result = np.array(res1)
-
-    # Add noise to audio data
     noise_data = data + 0.005 * np.random.normal(0, 1, len(data))
     res2 = extract_features(noise_data)
     result = np.vstack((result, res2))
