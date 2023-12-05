@@ -57,5 +57,3 @@ for file in crema_d_files:
     file_path.append(crema_d_directory + file)
 
 CremaD_df = pd.DataFrame({'Emotions': file_emotion, 'Path': file_path})
-
-
