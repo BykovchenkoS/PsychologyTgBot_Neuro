@@ -54,8 +54,6 @@ def get_features(path):
     noise_data = data + 0.005 * np.random.normal(0, 1, len(data))
     res2 = extract_features(noise_data)
     result = np.vstack((result, res2))
-
-    # Stretching and pitching
     new_data = librosa.effects.time_stretch(data, rate=1.5)
     n_steps = 4
     data_stretch_pitch = librosa.effects.pitch_shift(data, sr=sample_rate, n_steps=n_steps, bins_per_octave=12)
