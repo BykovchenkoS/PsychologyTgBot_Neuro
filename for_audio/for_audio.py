@@ -19,7 +19,6 @@ import keras
 from keras.callbacks import ReduceLROnPlateau
 from keras.models import Sequential
 from keras.layers import Dense, Conv1D, MaxPooling1D, Flatten, Dropout, BatchNormalization
-from keras.utils import np_utils, to_categorical
 from keras.callbacks import ModelCheckpoint
 
 import warnings

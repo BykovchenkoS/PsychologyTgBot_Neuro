@@ -1,6 +1,7 @@
 import telebot
 import DB_connection as db
 import re
+from for_text.text_emotions import text_emotions
 
 token = '6370582872:AAEv0DKfC_TWVuIBRGLrJ3ZgPbm0IIBM1KM'
 bot = telebot.TeleBot(token)
@@ -59,11 +60,13 @@ def message_reply(message):
         if (len(message.text.split()) >= 2):
             bot.send_message(message.chat.id,
                              "Ваше сообщение было взято на обработку! Ожидание ответа...")
+            text_emotions(message.text)
         else:
             bot.send_message(message.chat.id,
                          "К сожалению, боту недостаточно такого маленького текста для понимания ваших эмоций."
                          " Пожалуйста, напишите текст от 20 слов и более.")
 
+# I sat on the edge of the cliff, staring at the vast expanse of the ocean. The waves crashed against the rocks below, mirroring the tumult inside myself. The loss of my beloved pet left a void in heart, and tears welled in eyes as I longed for one last embrace.
 @bot.message_handler(content_types='voice')
 def audio_message_reply(message):
     file_info = bot.get_file(message.voice.file_id)
