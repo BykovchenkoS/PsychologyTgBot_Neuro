@@ -66,7 +66,6 @@ def message_reply(message):
                          "К сожалению, боту недостаточно такого маленького текста для понимания ваших эмоций."
                          " Пожалуйста, напишите текст от 20 слов и более.")
 
-# I sat on the edge of the cliff, staring at the vast expanse of the ocean. The waves crashed against the rocks below, mirroring the tumult inside myself. The loss of my beloved pet left a void in heart, and tears welled in eyes as I longed for one last embrace.
 @bot.message_handler(content_types='voice')
 def audio_message_reply(message):
     file_info = bot.get_file(message.voice.file_id)
