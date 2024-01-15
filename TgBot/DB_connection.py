@@ -6,7 +6,7 @@ with sqlite3.connect('../DataBases/database.db', check_same_thread=False) as db:
     CREATE TABLE IF NOT EXISTS users (
       user_id INTEGER PRIMARY KEY,
       have_friends BOOLEAN,
-      last_message DATETIME
+      user_name VARCHAR(50)
     );
     """
     query_friends = """CREATE TABLE IF NOT EXISTS users_friends (

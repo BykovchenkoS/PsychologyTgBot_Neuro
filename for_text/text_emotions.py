@@ -5,6 +5,8 @@ from keras.preprocessing.sequence import pad_sequences
 import numpy as np
 from nltk.corpus import stopwords
 import pickle
+from keras.models import model_from_json
+import pandas as pd
 
 stop_words = stopwords.words(('english'))
 
@@ -63,15 +65,32 @@ def normalized_sentence(sentence):
     return sentence
 
 
+# def text_emotions(sentence):
+#     with open('..\\for_text\\tokenizers\\tokenizer.pickle', 'rb') as handle:
+#         tokenizer = pickle.load(handle)
+#     model = load_model('..\\for_text\\models\\text_model.h5')
+#     sentence = normalized_sentence(sentence)
+#     sentence = tokenizer.texts_to_sequences([sentence])
+#     sentence = pad_sequences(sentence, maxlen=229, truncating='pre')
+#     with open('..\\for_text\\labelencoders\\le.pickle', 'rb') as handle:
+#         le = pickle.load(handle)
+#     result = le.inverse_transform(np.argmax(model.predict(sentence), axis=-1))[0]
+#     proba = np.max(model.predict(sentence))
+#     print(f"{result} : {proba}\n\n")
+
 def text_emotions(sentence):
-    with open('..\\for_text\\tokenizers\\tokenizer.pickle', 'rb') as handle:
-        tokenizer = pickle.load(handle)
-    model = load_model('..\\for_text\\models\\text_model.h5')
-    sentence = normalized_sentence(sentence)
-    sentence = tokenizer.texts_to_sequences([sentence])
-    sentence = pad_sequences(sentence, maxlen=229, truncating='pre')
-    with open('..\\for_text\\labelencoders\\le.pickle', 'rb') as handle:
-        le = pickle.load(handle)
-    result = le.inverse_transform(np.argmax(model.predict(sentence), axis=-1))[0]
-    proba = np.max(model.predict(sentence))
-    print(f"{result} : {proba}\n\n")
+    with open('..\\for_text\\models\\emotion_model_architecture.json', 'r') as f:
+        loaded_model = model_from_json(f.read())
+    loaded_model.load_weights('..\\for_text\\models\\emotion_model_weights.h5')
+    with open('..\\for_text\\tokenizers\\tokenizer1.pickle', 'rb') as handle:
+        loaded_tokenizer = pickle.load(handle)
+    y = ['empty', 'sadness', 'enthusiasm', 'neutral', 'worry', 'surprise',
+         'love', 'fun', 'hate', 'happiness', 'boredom', 'relief', 'anger']
+    labels = pd.get_dummies(y)
+    new_sequences = loaded_tokenizer.texts_to_sequences([sentence])
+    new_padded_sequences = pad_sequences(new_sequences, maxlen=37, padding='post')
+    predictions = loaded_model.predict(new_padded_sequences)
+    predicted_labels = [labels.columns[idx] for idx in predictions.argmax(axis=1)]
+    print(predicted_labels)
+    print(predicted_labels[0])
+    return predicted_labels[0]
